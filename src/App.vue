@@ -26,7 +26,6 @@ const router = createRouter({
 
 </script>
 
-<router-view />
 
 <template>
   <div>
@@ -39,13 +38,12 @@ const router = createRouter({
   </div>
 
   <nav style="margin: 1rem 0;">
-    <a :href="baseUrl">Home</a> |
-    <a :href="baseUrl + 'info'">Info (README)</a>
+    <router-link to="/">Главная</router-link> | 
+      <router-link to="/info">О проекте</router-link>
   </nav>
 
   <div>
-    <Info v-if="path === baseUrl + 'info'" />
-    <HelloWorld v-else msg="Vite + Vue" />
+    <router-view />
   </div>
 </template>
 
