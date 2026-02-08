@@ -9,7 +9,24 @@ function onPop() { path.value = window.location.pathname }
 
 onMounted(() => window.addEventListener('popstate', onPop))
 onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
+
+// В секции <script setup>
+const baseUrl = import.meta.env.BASE_URL; // Вернет '/edu-vue1/'
+
+
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL), // Vite сам подставит '/edu-vue1/'
+  routes: [
+    { path: '/', component: HelloWorld },
+    { path: '/info', component: Info },
+  ]
+})
+
 </script>
+
+<router-view />
 
 <template>
   <div>
@@ -22,12 +39,12 @@ onBeforeUnmount(() => window.removeEventListener('popstate', onPop))
   </div>
 
   <nav style="margin: 1rem 0;">
-    <a href="/">Home</a> |
-    <a href="/info">Info (README)</a>
+    <a :href="baseUrl">Home</a> |
+    <a :href="baseUrl + 'info'">Info (README)</a>
   </nav>
 
   <div>
-    <Info v-if="path === '/info'" />
+    <Info v-if="path === baseUrl + 'info'" />
     <HelloWorld v-else msg="Vite + Vue" />
   </div>
 </template>
